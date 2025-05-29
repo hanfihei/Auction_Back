@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 관리</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            margin-bottom: 5px;
+        }
+
+
+        .tab {
+            margin: 0 20px;
+            padding: 10px 0;
+            font-weight: 400;
+            color: #bbb;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            color: #000;
+            border-bottom: 2px solid #000;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filters input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .filters select, .filters button {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 16px 8px;
+        }
+
+        td select {
+            padding: 6px 10px;
+            font-size: 13px;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background-color: #ccc;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        .product-link {
+            color: #0076ff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pagination span {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .pagination span.active {
+            color: #000;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tabs">
+        <a href="/api/product/entry" class="tab">상품 등록</a>
+        <div class="tab active">상품 관리</div>
+    </div>
+
+    <form action="/api/product/management" method="get" class="filters">
+        <!-- 검색어 입력 -->
+        <input type="text" name="keyword" placeholder="상품명을 입력해주세요.">
+
+        <select>
+            <option>10개씩</option>
+            <option>20개씩</option>
+        </select>
+        <select>
+            <option>전체</option>
+            <option>판매 중</option>
+            <option>판매 완료</option>
+        </select>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>사진</th>
+            <th>판매상태</th>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>찜</th>
+            <th>게시일</th>
+            <th>마감일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><div class="product-image"></div></td>
+            <td>
+                <select>
+                    <option>판매 중</option>
+                    <option>판매 완료</option>
+                </select>
+            </td>
+            <td><a href="#" class="product-link">상품 이름이 들어갈 자리입니다.</a></td>
+            <td>150,000원</td>
+            <td>0</td>
+            <td>2024-05-16<br>14:36</td>
+            <td>2024-12-16<br>14:36</td>
+        </tr>
+        <tr>
+            <td><div class="product-image"></div></td>
+            <td>
+                <select>
+                    <option>판매 완료</option>
+                    <option>판매 중</option>
+                    <option>예약 중</option>
+                </select>
+            </td>
+            <td><a href="#" class="product-link">상품 이름이 들어갈 자리입니다.</a></td>
+            <td>150,000원</td>
+            <td>0</td>
+            <td>2024-05-16<br>14:36</td>
+            <td>2024-12-16<br>14:36</td>
+        </tr>
+        <tr>
+            <td><div class="product-image"></div></td>
+            <td>
+                <select>
+                    <option>예약 중</option>
+                    <option>판매 중</option>
+                    <option>판매 완료</option>
+                </select>
+            </td>
+            <td><a href="#" class="product-link">상품 이름이 들어갈 자리입니다.</a></td>
+            <td>150,000원</td>
+            <td>0</td>
+            <td>2024-05-16<br>14:36</td>
+            <td>2024-12-16<br>14:36</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="active">1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</div>
+</body>
+</html>

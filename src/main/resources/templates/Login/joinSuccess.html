@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 완료</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        .success-box {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        h2 {
+            color: #2e7d32;
+        }
+
+        a {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #2e7d32;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-box">
+    <h2>🎉 회원가입이 완료되었습니다!</h2>
+    <p>이제 로그인하여 서비스를 이용해보세요.</p>
+    <a th:href="@{/api/user/login}">로그인 하러 가기</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 성공</title>
+</head>
+<body>
+<h2>로그인 성공!</h2>
+
+<p th:text="'환영합니다, ' + ${nickname} + '님!'"></p>
+
+<a th:href="@{/api/user/login}">로그아웃</a>
+</body>
+</html>

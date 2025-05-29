@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 등록</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .tab {
+            padding: 10px 16px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .tab.active {
+            color: #000;
+            border-bottom: 2px solid #000;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .image-upload {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+            background-color: #f6f6f6;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .desc-small {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .price-wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        .price-wrap input {
+            flex: 1;
+        }
+
+        .price-wrap span {
+            margin-left: 6px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            background-color: #f0f0f0;
+            color: #555;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 8px 24px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 40px;
+            display: inline-block;
+        }
+        .submit-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .submit-btn:active {
+            background-color: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+<form action="/api/product/entry" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active">상품 등록</div>
+            <a href="/api/product/management" class="tab">상품 관리</a>
+
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <label style="margin-bottom: 12px;">상품 이미지 (0/12)</label>
+            <div class="image-upload" onclick="document.getElementById('file').click();">
+                <div>📷<br />이미지 등록</div>
+                <input type="file" id="file" name="image" required />
+            </div>
+            <div class="desc-small">상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로 보입니다.</div>
+        </div>
+
+        <div class="form-group">
+            <label>상품명</label>
+            <input type="text" name="productName" placeholder="상품명을 입력해 주세요." />
+        </div>
+
+        <div class="form-group">
+            <label>카테고리</label>
+            <select name="categoryId">
+                <option value="1">의류</option>
+                <option value="2">전자기기</option>
+                <option value="3">잡화</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>상품 상태</label>
+            <div class="radio-group">
+
+                <label><input type="radio" name="productCondition" value="NEW" /> 새 상품 (미사용)</label>
+                <label><input type="radio" name="productCondition" value="LIKE_NEW" /> 사용감 없음</label>
+                <label><input type="radio" name="productCondition" value="LIGHTLY_USED" /> 사용감 적음</label>
+                <label><input type="radio" name="productCondition" value="HEAVILY_USED" /> 사용감 많음</label>
+                <label><input type="radio" name="productCondition" value="DAMAGED" /> 고장/파손 상품</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>설명</label>
+            <textarea name="productDescription" placeholder="브랜드명, 모델명, 구매 시기, 하자 유무 등 상품 설명을 최대한 자세히 적어주세요."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>입찰 가격</label>
+            <div class="price-wrap">
+                <input type="number" name="productPrice" placeholder="가격을 입력해주세요." />
+                <span>원</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>거래 종료 일자</label>
+            <input type="date" name="deadline" value="2025-12-30" />
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <button class="submit-btn" type="submit">등록하기</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

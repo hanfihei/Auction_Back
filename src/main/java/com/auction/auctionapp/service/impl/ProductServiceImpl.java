@@ -11,6 +11,7 @@ import com.auction.auctionapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void productEntry(ProductEntryDTO dto, String userId) {
         Product product = productConverter.toEntity(dto, userId);
+        product.setCreatedAt(LocalDateTime.now()); // 이렇게 수정
         productRepository.save(product);
         System.out.println("상품 등록 완료: " + product.getName() + ", 등록자 ID: " + userId);
     }

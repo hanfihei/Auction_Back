@@ -31,7 +31,7 @@ public class ProductController {
         if (loginUser == null) {
             return "Login/login";
         }
-        return "createProduct.";
+        return "Product/createProduct.";
     }
 
     // 상품 등록 처리
@@ -74,14 +74,14 @@ public class ProductController {
     public String productDetailBuyer(@PathVariable Long productId, Model model) {
         DetailsPageDTO dto = productService.getProductDetails(productId);
         model.addAttribute("dto", dto);
-        return "productDetailBuyer";
+        return "Product/productDetailBuyer";
     }
 
     @GetMapping("/productList")
     public String productList(Model model) {
         List<ProductListDTO> productList = productService.getProductList();
         model.addAttribute("productList", productList);
-        return "productList"; // 보여줄 HTML 파일
+        return "Product/productList";
     }
 
 }

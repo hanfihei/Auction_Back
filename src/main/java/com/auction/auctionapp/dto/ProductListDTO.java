@@ -20,5 +20,5 @@ public class ProductListDTO{
 
     private BigDecimal productPrice;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }

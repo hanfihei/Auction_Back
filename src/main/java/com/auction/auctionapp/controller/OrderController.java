@@ -24,7 +24,7 @@ public class OrderController {
 
         model.addAttribute("dto", dto);
 
-        return "purchaseComplete";
+        return "Order/purchaseComplete";
     }
 
 

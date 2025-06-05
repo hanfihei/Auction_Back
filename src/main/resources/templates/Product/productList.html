@@ -44,7 +44,7 @@
             <p th:text="${item.categoryName}">카테고리</p>
             <h3 th:text="${item.productName}">상품명</h3>
             <p th:text="${#numbers.formatInteger(item.productPrice, 3, 'COMMA')} + '원'">가격</p>
-            <p th:text="${item.createAt}">게시일</p>
+            <p th:text="${item.createdAt}">게시일</p>
         </div>
     </div>
 </div>

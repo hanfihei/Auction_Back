@@ -20,8 +20,9 @@ public class Order {
     private Long orderId;
 
     // 구매자 (User)와 다대일 관계
+    // 구매자 (User)와 다대일 관계
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id") // 기본 키 user_no 기준으로 매핑
+    @JoinColumn(name = "buyer_id", referencedColumnName = "user_id")
     private User buyer;
 
 
@@ -48,8 +49,5 @@ public class Order {
     @Column(name = "ordered_at")
     private LocalDateTime orderAt;
 
-    // 경매 상품과 일대일 관계
-    @OneToOne
-    @JoinColumn(name = "auction_id")
-    private Auction auction;
+
 }

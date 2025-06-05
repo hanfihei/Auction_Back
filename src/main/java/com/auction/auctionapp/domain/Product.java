@@ -23,12 +23,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    // 경매와 양방향 일대일 관계
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-    private Auction auction;
-
-    //@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<Product_Images> images = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
@@ -53,8 +47,8 @@ public class Product {
     private BigDecimal productPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category categoryId;
+    @JoinColumn(name = "category_id" )
+    private Category category;
 
 
     @Column(name = "image_path", length = 255)
@@ -62,7 +56,7 @@ public class Product {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "conditon", length = 20)
+    @Column(name = "`condition`", length = 20)
     private ProductCondition condition;
 
     @Column(name="created_at")

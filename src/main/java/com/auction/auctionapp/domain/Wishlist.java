@@ -15,7 +15,7 @@ public class Wishlist {
 
     // ✅ user_id: 외래키 관계로 설정 권장
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     // ✅ product_id: 외래키 관계로 설정 권장

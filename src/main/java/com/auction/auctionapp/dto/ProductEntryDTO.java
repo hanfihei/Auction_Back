@@ -7,14 +7,17 @@ import com.auction.auctionapp.domain.enums.ProductStatus;
 import lombok.*;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEntryDTO {
 
 
@@ -24,7 +27,7 @@ public class ProductEntryDTO {
 
     private String productDescription;
 
-    private int productPrice;
+    private BigDecimal productPrice;
 
     private String productImage;
 
@@ -34,7 +37,9 @@ public class ProductEntryDTO {
 
     private ProductStatus productStatus;
 
-    private LocalDate deadline;
+    private LocalDate createDate;
+
+    private MultipartFile imageFile;
 
 
 

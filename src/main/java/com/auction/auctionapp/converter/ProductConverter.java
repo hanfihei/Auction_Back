@@ -34,10 +34,9 @@ public class ProductConverter {
         return Product.builder()
                 .name(dto.getProductName())
                 .description(dto.getProductDescription())
-                .productPrice(BigDecimal.valueOf(dto.getProductPrice()))
-                .deadline(dto.getDeadline())
+                .productPrice(dto.getProductPrice())
                 .imagePath(dto.getProductImage())
-                .categoryId(category)
+                .category(category)
                 .status(ProductStatus.ON_SALE) // 기본값 세팅. 거래완료할때 변경
                 .user(user)
                 .condition(dto.getProductCondition())

@@ -13,7 +13,7 @@ public class Category {
     private int categoryId;
 
     @Column(length=50)
-    private String name;
+    private String categoryName;
 
     @Column(columnDefinition = "TEXT")
     private String question;

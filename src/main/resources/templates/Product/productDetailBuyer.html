@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 상세 정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>상품 상세 정보</h2>
+
+    <div class="field">
+        <label>상품명:</label>
+        <p th:text="${dto.productName}">상품명</p>
+    </div>
+
+    <div class="field">
+        <label>상품 설명:</label>
+        <p th:text="${dto.productDescription}">상품 설명</p>
+    </div>
+
+    <div class="field">
+        <label>이미지:</label>
+        <img th:src="${dto.productImage}" alt="상품 이미지" style="width: 100%; max-width: 400px;">
+    </div>
+
+    <div class="field">
+        <label>가격:</label>
+        <p th:text="${dto.productPrice}">10000원</p>
+    </div>
+
+    <div class="field">
+        <label>상태:</label>
+        <p th:text="${dto.productStatus}">판매중</p>
+    </div>
+</div>
+
+</body>
+</html>

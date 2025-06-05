@@ -52,11 +52,10 @@ public class User {
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Product> products = new ArrayList<>();
+
     //@OneToMany(mappedBy = "seller")
     //private List<Product> products; // 판매한 상품들
 
-    @OneToMany(mappedBy = "user")
-    private List<Bid> bids; // 입찰 내역
 
     @OneToMany(mappedBy = "user")
     private List<Interest> interests; // 관심상품

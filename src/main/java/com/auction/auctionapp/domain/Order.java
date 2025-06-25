@@ -48,6 +48,4 @@ public class Order {
 
     @Column(name = "ordered_at")
     private LocalDateTime orderAt;
-
-
 }

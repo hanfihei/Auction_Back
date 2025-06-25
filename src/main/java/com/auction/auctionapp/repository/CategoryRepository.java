@@ -1,6 +1,5 @@
 package com.auction.auctionapp.repository;
 
-import com.auction.auctionapp.domain.Board;
 import com.auction.auctionapp.domain.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 

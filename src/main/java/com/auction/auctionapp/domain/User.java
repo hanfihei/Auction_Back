@@ -3,69 +3,58 @@ package com.auction.auctionapp.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
-
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "`user`") // user는 MySQL 예약어이므로 백틱으로 감쌈
+@Table(name = "`user`")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_no", nullable = false)
+    @Column(name = "user_no")
     private Long userNo;
 
-    @Column(name = "nickname", length = 50, unique = true)
-    private String nickname;
-
-    @Column(name = "user_id", length = 50, unique = true)
+    @Column(name = "user_id", unique = true)
     private String userId;
 
-    @Column(length = 100)
+    @Column(name = "password")
     private String password;
 
-    @Column (columnDefinition = "TEXT")
-    private String intro;
+    @Column(name = "nickname", unique = true)
+    private String nickname;
 
-    @Column(name = "profile_image", length = 255)
-    private String profileImage;
-
-    @Column(name = "address", length = 255)
-    private String address;
-
-    @Column(name = "category", length = 255)
-    private String category;
-
-    @Column(length = 100)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number", length = 20)
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "account_no")
+    private String accountNo;
+
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "bank")
     private String bank;
 
-    @Column(name = "account_no", length = 100)
-    private String accountNo;
+    @Column(name = "category")
+    private String category;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Product> products = new ArrayList<>();
+    @Column(name = "intro", columnDefinition = "TEXT")
+    private String intro;
 
-    //@OneToMany(mappedBy = "seller")
-    //private List<Product> products; // 판매한 상품들
+    @Column(name = "profile_image")
+    private String profileImage;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Interest> interests; // 관심상품
 
-    @OneToMany(mappedBy = "buyer")
-    private List<Order> orders; // 구매한 주문들
-
-    @OneToMany(mappedBy = "user")
-    private List<Seller_Inquiry> sellerInquiries; // 판매자 문의들
-
-//    @OneToMany(mappedBy = "user")
 
 }

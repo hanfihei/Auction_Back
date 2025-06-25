@@ -1,16 +1,24 @@
 package com.auction.auctionapp.service.impl;
 
 import com.auction.auctionapp.converter.ProductConverter;
+import com.auction.auctionapp.domain.Order;
 import com.auction.auctionapp.domain.Product;
-import com.auction.auctionapp.dto.DetailsPageDTO;
-import com.auction.auctionapp.dto.ProductEntryDTO;
-import com.auction.auctionapp.dto.ProductListDTO;
-import com.auction.auctionapp.dto.PurchaseCompleteDTO;
+import com.auction.auctionapp.domain.User;
+import com.auction.auctionapp.domain.enums.OrderStatus;
+import com.auction.auctionapp.domain.enums.ProductStatus;
+import com.auction.auctionapp.dto.*;
+import com.auction.auctionapp.repository.OrderRepository;
 import com.auction.auctionapp.repository.ProductRepository;
+import com.auction.auctionapp.repository.UserRepository;
 import com.auction.auctionapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +32,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductConverter productConverter;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public void productEntry(ProductEntryDTO dto, String userId) {
         Product product = productConverter.toEntity(dto, userId);
@@ -36,6 +50,31 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProducts(String keyword) {
         return productRepository.findByNameContainingIgnoreCase(keyword);
     }
+    //상품삭제
+    @Override
+    public void deleteProductById(Long productId) {
+        List<Order> orders = orderRepository.findAllByProduct_ProductId(productId);
+        orderRepository.deleteAll(orders);
+
+        productRepository.deleteById(productId);
+    }
+
+    @Override
+    public List<ProductListDTO> getProductsByCategoryId(Long categoryId) {
+        List<Product> products = productRepository.findByCategory_CategoryId(categoryId);
+        return products.stream().map(product -> ProductListDTO.builder()
+                .productId(product.getProductId())
+                .productImage(product.getImagePath())
+                .categoryName(product.getCategory().getCategoryName())
+                .productName(product.getName())
+                .productPrice(product.getProductPrice())
+                .createdAt(product.getCreatedAt())
+                .build()
+        ).collect(Collectors.toList());
+    }
+
+
+
 
     @Override
     public List<Product> findAllByUserId(String userId) {
@@ -51,6 +90,7 @@ public class ProductServiceImpl implements ProductService {
         return DetailsPageDTO.builder()
                 .productId(product.getProductId())
                 .productName(product.getName())
+                .productCondition(product.getCondition().getDisplayName())
                 .productDescription(product.getDescription())
                 .productImage(product.getImagePath())
                 .productPrice(product.getProductPrice())
@@ -59,14 +99,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PurchaseCompleteDTO getPurchaseComplete(Long productId) {
+    public PurchaseCompleteDTO getPurchaseComplete(Long productId, String userId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+
+        com.auction.auctionapp.domain.User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("유저가 존재하지 않습니다."));
 
         return PurchaseCompleteDTO.builder()
                 .productImage(product.getImagePath())
                 .productPrice(product.getProductPrice())
                 .createdAt(product.getCreatedAt())
+                .accountNo(product.getUser().getAccountNo())
+                .bank(product.getUser().getBank())
                 .build();
     }
 
@@ -76,15 +121,36 @@ public class ProductServiceImpl implements ProductService {
 
         return products.stream()
                 .map(product -> ProductListDTO.builder()
+                        .productId(product.getProductId())
                         .productImage(product.getImagePath())
                         .categoryName(product.getCategory().getCategoryName()) // 연관관계 주의
                         .productName(product.getName())
                         .productPrice(product.getProductPrice())
+                        .createdAt(product.getCreatedAt())
                         .build()
                 ).collect(Collectors.toList());
     }
 
+    // 페이지
+    @Override
+    public Page<Product> findPagedByUserId(String userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        return productRepository.findByUser_UserId(userId, pageable);
+    }
 
+    @Override
+    public int countAllSales(Long sellerId) {
+        return productRepository.countBySeller_UserNo(sellerId);
+    }
+    @Override
+    public int countOnSale(Long sellerNo) {
+        return productRepository.countBySeller_UserNo(sellerNo);
+    }
 
+    @Override
+    public int countSoldOut(Long sellerNo) {
+        return productRepository.countBySeller_UserNoAndStatus(sellerNo, ProductStatus.SOLD_OUT);
+    }
 
 }
+

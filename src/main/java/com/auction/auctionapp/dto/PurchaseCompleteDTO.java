@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseCompleteDTO {
-
     private Long productId;
 
     private String productImage;
@@ -19,4 +18,8 @@ public class PurchaseCompleteDTO {
     private BigDecimal productPrice;
 
     private LocalDateTime createdAt;
+
+    private String accountNo;
+
+    private String bank;
 }

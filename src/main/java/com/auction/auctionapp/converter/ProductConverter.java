@@ -23,7 +23,8 @@ public class ProductConverter {
 
     public Product toEntity(ProductEntryDTO dto, String userId) {
 
-        User user = userRepository.findById(userId)
+        //userId가 pk가 아니라서 findByUserId 사용함
+        User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
 
         Category category = categoryRepository.findById(dto.getCategoryId())

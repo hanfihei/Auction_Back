@@ -8,8 +8,6 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,17 +21,21 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     //@ManyToOne
     //@JoinColumn(name = "seller_id")
     //private User seller;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User seller;
+
 
     private LocalDate deadline;
 
@@ -47,13 +49,11 @@ public class Product {
     private BigDecimal productPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id" )
+    @JoinColumn(name = "category_id")
     private Category category;
-
 
     @Column(name = "image_path", length = 255)
     private String imagePath;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "`condition`", length = 20)
@@ -61,4 +61,14 @@ public class Product {
 
     @Column(name="created_at")
     private LocalDateTime createdAt;
+
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int likeCount;
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 }

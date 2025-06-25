@@ -24,4 +24,5 @@ public class DetailsPageDTO {
 
     private String productStatus;
 
+    private String productCondition;
 }
